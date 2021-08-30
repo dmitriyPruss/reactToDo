@@ -1,10 +1,6 @@
 @import './../../common/styles/vars';
 @import './../../common/styles/templates';
 
-* {
-  box-sizing: border-box;
-}
-
 :root {
   font-size: 16px;
 }
@@ -96,7 +92,7 @@
     @extend %listItemTextSets;
   }
 
-  & > div {
+  & > button {
     margin: 0 5px 0 auto;
   }
 }

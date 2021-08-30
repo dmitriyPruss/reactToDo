@@ -7,7 +7,10 @@ import { INPUT_SCHEMA } from './../../utils/validatingSchemas';
 import styles from './../../pages/TodoPage/TodoPage.module.scss';
 
 function TasksForm (props) {
-  const { changeTheme, setTasks, tasks } = props;
+  const {
+    changeTheme,
+    taskArr: [tasks, setTasks],
+  } = props;
 
   const addTask = (values, formikBag) => {
     let stopFunc = null;

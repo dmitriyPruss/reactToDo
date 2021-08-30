@@ -5,7 +5,10 @@ import { Button } from 'react-bootstrap';
 import styles from './../../pages/TodoPage/TodoPage.module.scss';
 
 function TasksList (props) {
-  const { changeTheme, setTasks, tasks } = props;
+  const {
+    changeTheme,
+    taskArr: [tasks, setTasks],
+  } = props;
   const theme = useContext(ThemeContext);
 
   const mapTask = ({ id, body, isDone }, index) => {
@@ -23,8 +26,6 @@ function TasksList (props) {
         }
         return task;
       });
-
-      console.log('newTasks :>> ', newTasks);
 
       setTasks(newTasks);
     };

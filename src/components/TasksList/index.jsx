@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { ThemeContext } from './../../contexts';
-import { Button } from 'react-bootstrap';
-import styles from './../../pages/TodoPage/TodoPage.module.scss';
+import TasksListItem from './TasksListItem';
 
 function TasksList (props) {
   const {
-    changeTheme,
     taskArr: [tasks, setTasks],
+    listClasses: { itemsContainer },
   } = props;
+
   const theme = useContext(ThemeContext);
 
   const mapTask = ({ id, body, isDone }, index) => {
     const deleteTask = id => {
       const deletedElem = tasks.findIndex(task => task.id === id);
+
       const newTasks = [...tasks];
       newTasks.splice(deletedElem, 1);
       setTasks(newTasks);
@@ -31,23 +31,18 @@ function TasksList (props) {
     };
 
     return (
-      <li
+      <TasksListItem
         key={id}
-        className={theme ? styles.listItemLight : styles.listItemDark}
-      >
-        <input type='checkbox' onClick={e => checkTask(id)} />
-        <span>{body}</span>
-        <Button
-          variant={theme ? 'outline-success' : 'outline-light'}
-          onClick={e => deleteTask(id)}
-        >
-          <DeleteOutlineIcon />
-        </Button>
-      </li>
+        id={id}
+        body={body}
+        checkTaskHandler={checkTask}
+        deleteTaskHandler={deleteTask}
+        listClasses={props.listClasses}
+      />
     );
   };
 
-  return <ul className={styles.itemsContainer}>{tasks.map(mapTask)}</ul>;
+  return <ul className={itemsContainer}>{tasks.map(mapTask)}</ul>;
 }
 
 export default TasksList;

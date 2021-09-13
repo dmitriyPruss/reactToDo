@@ -4,12 +4,11 @@ import Input from '../../components/Input';
 import { ThemeContext } from './../../contexts';
 import { Button } from 'react-bootstrap';
 import { INPUT_SCHEMA } from './../../utils/validatingSchemas';
-import styles from './../../pages/TodoPage/TodoPage.module.scss';
 
 function TasksForm (props) {
   const {
-    changeTheme,
     taskArr: [tasks, setTasks],
+    formClasses: { inputData },
   } = props;
 
   const addTask = (values, formikBag) => {
@@ -37,13 +36,6 @@ function TasksForm (props) {
 
   return (
     <>
-      <Button
-        className={styles.themeButton}
-        variant={theme ? 'outline-info' : 'outline-danger'}
-        onClick={changeTheme}
-      >
-        Change Theme
-      </Button>
       <Formik
         initialValues={{ body: '' }}
         validationSchema={INPUT_SCHEMA}
@@ -51,8 +43,14 @@ function TasksForm (props) {
       >
         {formikProps => {
           return (
-            <Form className={styles.inputData}>
-              <Input name='body' theme={theme} placeholder='Enter Todo...' />
+            <Form className={inputData}>
+              <Input name='body' placeholder='Enter Todo...' />
+              <Button
+                variant={theme ? 'outline-success' : 'outline-light'}
+                as='input'
+                type='submit'
+                value='Add Task'
+              />
             </Form>
           );
         }}
